@@ -36,8 +36,7 @@ sleep 3
 
 docker exec --interactive --tty ${DOCKER_NAME} psql \
     --username postgres \
-    --command "CREATE USER \"$POSTGRES_USER\"
-        WITH PASSWORD '$POSTGRES_PASSWORD';" \
+    --command "CREATE USER \"$POSTGRES_USER\" WITH PASSWORD '$POSTGRES_PASSWORD';" \
 
 docker exec --interactive --tty ${DOCKER_NAME} psql \
     --username postgres \
