@@ -13,7 +13,7 @@ if [ "$POSTGRES_HOST" != "localhost" ]; then
     exit 1
 fi
 
-pgVars="POSTGRES_PORT POSTGRES_USER POSTGRES_PASSWORD POSTGRESS_DB"
+pgVars="POSTGRES_PORT POSTGRES_USER POSTGRES_PASSWORD POSTGRES_DB"
 for var in $pgVars; do
     if [ -z "${!var}" ]; then
         echo "ERROR: missing $var in '.env' file."
@@ -34,10 +34,12 @@ docker run \
 
 sleep 3
 
+echo "CREATE USER \"$POSTGRES_USER\" WITH PASSWORD '$POSTGRES_PASSWORD';"
 docker exec --interactive --tty ${DOCKER_NAME} psql \
     --username postgres \
     --command "CREATE USER \"$POSTGRES_USER\" WITH PASSWORD '$POSTGRES_PASSWORD';"
 
+echo "CREATE DATABASE \"$POSTGRES_DB\" OWNER '$POSTGRES_USER';"
 docker exec --interactive --tty ${DOCKER_NAME} psql \
     --username postgres \
     --command "CREATE DATABASE \"$POSTGRES_DB\" OWNER '$POSTGRES_USER';"
