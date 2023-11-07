@@ -7,6 +7,8 @@ from alembic import context
 
 from src.congif import get_settings
 from src.db.schemas import Base
+from sqlalchemy import create_engine
+
 
 settings = get_settings()
 pg_url = settings.POSTGRES_URL
@@ -45,7 +47,7 @@ def run_migrations_offline() -> None:
     script output.
 
     """
-    # url = config.get_main_option("sqlalchemy.url")
+    
     context.configure(
         url=pg_url,
         target_metadata=target_metadata,
@@ -67,12 +69,7 @@ def run_migrations_online() -> None:
     alembic_config = config.get_section(config.config_ini_section)
     alembic_config['sqlalchemy.url'] = pg_url
     
-
-    connectable = engine_from_config(
-        config.get_section(config.config_ini_section, {}),
-        prefix="sqlalchemy.",
-        poolclass=pool.NullPool,
-    )
+    connectable = create_engine(settings.POSTGRES_URL)
 
     with connectable.connect() as connection:
         context.configure(
