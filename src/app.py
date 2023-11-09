@@ -2,13 +2,12 @@ from fastapi import Depends
 from fastapi import FastAPI
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
-from .api.crud.family_crud import ChildCreate
-from .api.crud.family_crud import ChildRead
 from .api.crud.family_crud import ParentCreate
 from .api.crud.family_crud import ParentRead
 from .api.crud.family_crud import ParentUpdate
-from .db.schemas.parent import Child
-from .db.schemas.parent import Parent
+from .db.schemas.school import School
+from .db.schemas.people import Student
+from .db.schemas.people import Teacher
 from .db.session import get_db
 
 app = FastAPI()
