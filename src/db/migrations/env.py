@@ -69,7 +69,7 @@ def run_migrations_online() -> None:
     alembic_config = config.get_section(config.config_ini_section)
     alembic_config['sqlalchemy.url'] = pg_url
     
-    connectable = create_engine(settings.POSTGRES_URL)
+    connectable = create_engine(pg_url)
 
     with connectable.connect() as connection:
         context.configure(
